@@ -92,14 +92,14 @@
 //get device keys
 	$sql = "SELECT * FROM v_device_keys ";
 	$sql .= "WHERE device_uuid = '".$device_uuid."' ";
-	$sql .= "ORDER by ";
+	$sql .= "ORDER by by device_key_id,";
 	$sql .= "CASE device_key_category ";
 	$sql .= "WHEN 'line' THEN 1 ";
-	$sql .= "WHEN 'memort' THEN 2 ";
+	$sql .= "WHEN 'memory' THEN 2 ";
 	$sql .= "WHEN 'programmable' THEN 3 ";
 	$sql .= "WHEN 'expansion' THEN 4 ";
 	$sql .= "ELSE 100 END, ";
-	$sql .= "cast(device_key_id as numeric) asc ";
+	$sql .= "cast(device_key_id as unsigned) asc ";
 	$prep_statement = $db->prepare(check_sql($sql));
 	$prep_statement->execute();
 	$device_keys = $prep_statement->fetchAll(PDO::FETCH_NAMED);
